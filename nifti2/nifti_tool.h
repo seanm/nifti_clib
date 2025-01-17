@@ -121,17 +121,10 @@ typedef struct {
    char name[NT_FIELD_NAME_LEN]; /* actual structure name used          */
 } field_s;
 
-/* for computing the offset from the start of the struct */
-#define NT_OFF(str,field) ((int)( ((char *)&str.field) - ((char *)&str) ))
-#define SHOW_STRUCT_OFFSET(str,field,mesg) do { str ss;                 \
-   if(mesg)printf("%s ",(char*)mesg);                                   \
-   printf("%s.%s @ offset %d\n", #str, #field, NT_OFF(ss,field)); }     \
-   while (0)
-
 /* call fill_field() for a single type, name and number of elements */
 /* nstr is the base struct, and fldp is a field pointer */
-#define NT_SFILL(nstr,fldp,type,name,num,rv) do{                   \
-           rv=fill_field(fldp,type,NT_OFF(nstr,name),num,#name);   \
+#define NT_FILL(nstr,fldp,type,name,num,rv) do{                      \
+           rv=fill_field(fldp,type,offsetof(nstr,name),num,#name);   \
            fldp++; } while (0)
 
 #define NT_MAKE_IM_NAME "MAKE_IM"
