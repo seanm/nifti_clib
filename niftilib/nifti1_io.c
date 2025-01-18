@@ -4427,7 +4427,7 @@ static int nifti_read_extensions( nifti_image *nim, znzFile fp, int remain )
 
    if( (posn != sizeof(nifti_1_header)) &&
        (nim->nifti_type != NIFTI_FTYPE_ASCII) )
-      fprintf(stderr,"** WARNING: posn not header size (%lld, %lu)\n",
+      fprintf(stderr,"** WARNING: posn not header size (%lld, %zu)\n",
               (long long)posn, sizeof(nifti_1_header));
 
    if( g_opts.debug > 2 )
