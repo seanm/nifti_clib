@@ -309,7 +309,7 @@ static void disp_name_n_desc(FILE * fp, afni_xml_t * ax, int indent, int verb)
 
    fprintf(fp, "%*s%s : ", indent, "", ax->name);
 
-   if( ax && ax->xtext && ax->xlen > 0 ) {
+   if( ax->xtext && ax->xlen > 0 ) {
       if( ax->xlen <= max ) fprintf(fp, "%.*s\n", ax->xlen, ax->xtext);
       else
          fprintf(fp, "\n%*s: %.*s ...\n", indent+3, "", max, ax->xtext);
