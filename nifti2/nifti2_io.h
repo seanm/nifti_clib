@@ -500,7 +500,7 @@ NI2_API char * nifti_makehdrname  (const char * prefix, int nifti_type, int chec
 NI2_API char * nifti_makeimgname  (const char * prefix, int nifti_type, int check,
                            int comp);
 NI2_API int    is_nifti_file      (const char *hname);
-NI2_API char * nifti_find_file_extension(const char * name);
+NI2_API const char * nifti_find_file_extension(const char * name);
 NI2_API int    nifti_is_complete_filename(const char* fname);
 NI2_API int    nifti_validfilename(const char* fname);
 

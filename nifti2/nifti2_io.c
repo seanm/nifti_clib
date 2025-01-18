@@ -3501,13 +3501,8 @@ int nifti_validfilename(const char* fname)
 
     \return a pointer to the extension substring within the original
             function input parameter name, or NULL if not found.
-    \warning Note that if the input parameter is is immutabale
-             (i.e. a const char *) then this function performs an
-             implicit casting away of the mutability constraint and
-             the return parameter will appear as a mutable
-             even though it is part of the immuttable string.
 *//*--------------------------------------------------------------------*/
-char * nifti_find_file_extension( const char * name )
+const char * nifti_find_file_extension( const char * name )
 {
    const char * ext;
    char extcopy[8];
@@ -3540,7 +3535,7 @@ char * nifti_find_file_extension( const char * name )
                  ext);
          return NULL;
       }
-      else return (char *)ext; /* Cast away the constness of the input parameter */
+      else return ext;
    }
 
 #ifdef HAVE_ZLIB
@@ -3561,7 +3556,7 @@ char * nifti_find_file_extension( const char * name )
                         ext);
          return NULL;
       }
-      else return (char *)ext; /* Cast away the constness of the input parameter */
+      else return ext;
    }
 
 #endif
