@@ -246,9 +246,9 @@ static int write_nifti_file(char * const hdr_file, char * const data_file)
         hdr.scl_slope = 100.0;
         hdr.xyzt_units = NIFTI_UNITS_MM | NIFTI_UNITS_SEC;
         if (do_nii)
-                strncpy(hdr.magic, "n+1\0", 4);
+                strncpy(hdr.magic, "n+1\0", sizeof(hdr.magic));
         else
-                strncpy(hdr.magic, "ni1\0", 4);
+                strncpy(hdr.magic, "ni1\0", sizeof(hdr.magic));
 
 
 /********** allocate buffer and fill with dummy data  */
