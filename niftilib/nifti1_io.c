@@ -6489,10 +6489,10 @@ int nifti_short_order(void)   /* determine this CPU's byte order */
 #define QNUM(nam,tt)    QQNUM(nam,nam,tt)
 
 /* macro to check lhs string against "nam"; if it matches,
-   put rhs string into nim->"nam" string, with max length = "ml" */
+   put rhs string into nim->"nam" string, with field size = "sz" */
 
-#define QSTR(nam,ml) if( strcmp(lhs,#nam) == 0 )                           \
-                       strncpy(nim->nam,rhs,ml), nim->nam[ml]='\0'
+#define QSTR(nam,sz) if( strcmp(lhs,#nam) == 0 )                           \
+                       strncpy(nim->nam,rhs,sz), nim->nam[sz-1]='\0'
 
 /*---------------------------------------------------------------------------*/
 /*! Take an XML-ish ASCII string and create a NIFTI image header to match.
@@ -6626,12 +6626,12 @@ nifti_image *nifti_image_from_ascii( const char *str, int * bytes_read )
      else QNUM(intent_p1,float) ;
      else QNUM(intent_p2,float) ;
      else QNUM(intent_p3,float) ;
-     else QSTR(intent_name,15) ;
+     else QSTR(intent_name,sizeof(nim->intent_name)) ;
      else QNUM(toffset,float) ;
      else QNUM(xyz_units,int) ;
      else QNUM(time_units,int) ;
-     else QSTR(descrip,79) ;
-     else QSTR(aux_file,23) ;
+     else QSTR(descrip,sizeof(nim->descrip)) ;
+     else QSTR(aux_file,sizeof(nim->aux_file)) ;
      else QNUM(qform_code,int) ;
      else QNUM(quatern_b,float) ;
      else QNUM(quatern_c,float) ;
