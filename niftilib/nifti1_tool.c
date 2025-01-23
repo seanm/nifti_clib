@@ -3572,7 +3572,7 @@ int diff_field(field_s *fieldp, void * str0, void * str1, int nfields)
 /*----------------------------------------------------------------------
  * display a single extension
  *----------------------------------------------------------------------*/
-int disp_nifti1_extension( const char *mesg, nifti1_extension * ext, int maxlen)
+int disp_nifti1_extension( const char *mesg, const nifti1_extension * ext, int maxlen)
 {
    int len;
    if( mesg ) fputs(mesg, stdout);
