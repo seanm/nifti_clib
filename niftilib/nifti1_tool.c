@@ -165,6 +165,7 @@ static int  g_debug = 1;
 #include <limits.h>
 #include <string.h>
 #include <stdint.h>
+#include <stddef.h>
 
 #include "nifti1_io.h"
 #include "nifti1_tool.h"
@@ -3035,7 +3036,6 @@ int modify_field(void * basep, field_s * field, const char * data)
  *----------------------------------------------------------------------*/
 int fill_hdr_field_array( field_s * nh_fields )
 {
-   nifti_1_header   nhdr;
    field_s        * nhf = nh_fields;
    int              rv, errs;
 
@@ -3046,55 +3046,55 @@ int fill_hdr_field_array( field_s * nh_fields )
          nhf++;
    */
    errs = 0;
-   NT_SFILL(nhdr, nhf, DT_INT32,     sizeof_hdr,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, NT_DT_STRING, data_type,     10, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, NT_DT_STRING, db_name,       18, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT32,     extents,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT16,     session_error,  1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, NT_DT_STRING, regular,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT8,      dim_info,       1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT32,     sizeof_hdr,     1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, NT_DT_STRING, data_type,     10, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, NT_DT_STRING, db_name,       18, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT32,     extents,        1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     session_error,  1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, NT_DT_STRING, regular,        1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT8,      dim_info,       1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, nhf, DT_INT16,     dim,            8, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   intent_p1,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   intent_p2,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   intent_p3,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT16,     intent_code,    1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     dim,            8, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   intent_p1,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   intent_p2,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   intent_p3,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     intent_code,    1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, nhf, DT_INT16,     datatype,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT16,     bitpix,         1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT16,     slice_start,    1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   pixdim,         8, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   vox_offset,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   scl_slope,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   scl_inter,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT16,     slice_end,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     datatype,       1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     bitpix,         1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     slice_start,    1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   pixdim,         8, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   vox_offset,     1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   scl_slope,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   scl_inter,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     slice_end,      1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, nhf, DT_INT8,      slice_code,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT8,      xyzt_units,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   cal_max,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   cal_min,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   slice_duration, 1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   toffset,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT32,     glmax,          1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT32,     glmin,          1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT8,      slice_code,     1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT8,      xyzt_units,     1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   cal_max,        1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   cal_min,        1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   slice_duration, 1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   toffset,        1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT32,     glmax,          1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT32,     glmin,          1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, nhf, NT_DT_STRING, descrip,       80, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, NT_DT_STRING, aux_file,      24, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT16,     qform_code,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_INT16,     sform_code,     1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, NT_DT_STRING, descrip,       80, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, NT_DT_STRING, aux_file,      24, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     qform_code,     1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_INT16,     sform_code,     1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   quatern_b,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   quatern_c,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   quatern_d,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   qoffset_x,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   qoffset_y,      1, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   qoffset_z,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   quatern_b,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   quatern_c,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   quatern_d,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   qoffset_x,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   qoffset_y,      1, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   qoffset_z,      1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   srow_x,         4, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   srow_y,         4, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, DT_FLOAT32,   srow_z,         4, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, NT_DT_STRING, intent_name,   16, rv);  errs += rv;
-   NT_SFILL(nhdr, nhf, NT_DT_STRING, magic,          4, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   srow_x,         4, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   srow_y,         4, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, DT_FLOAT32,   srow_z,         4, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, NT_DT_STRING, intent_name,   16, rv);  errs += rv;
+   NT_FILL(nifti_1_header, nhf, NT_DT_STRING, magic,          4, rv);  errs += rv;
 
    if( errs > 0 ){
       fprintf(stderr, "** %d fill_fields errors!\n", errs);
@@ -3103,7 +3103,7 @@ int fill_hdr_field_array( field_s * nh_fields )
 
    /* failure here is a serious problem */
    if( check_total_size("nifti_1_header test: ", nh_fields,
-                        NT_HDR_NUM_FIELDS, sizeof(nhdr)) )
+                        NT_HDR_NUM_FIELDS, sizeof(nifti_1_header)) )
       return 1;
 
    if( g_debug > 3 )
@@ -3118,7 +3118,6 @@ int fill_hdr_field_array( field_s * nh_fields )
  *----------------------------------------------------------------------*/
 int fill_nim_field_array( field_s * nim_fields )
 {
-   nifti_image   nim;
    field_s     * nif = nim_fields;
    int           rv, errs;
 
@@ -3126,69 +3125,69 @@ int fill_nim_field_array( field_s * nim_fields )
 
    errs = 0;
 
-   NT_SFILL(nim, nif, DT_INT32,             ndim,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,               nx,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,               ny,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,               nz,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,               nt,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,               nu,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,               nv,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,               nw,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,              dim,  8, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,             nvox,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,           nbyper,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,         datatype,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,             dx,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,             dy,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,             dz,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,             dt,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,             du,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,             dv,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,             dw,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,         pixdim,  8, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      scl_slope,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      scl_inter,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,        cal_min,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,        cal_max,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,       qform_code,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,       sform_code,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,         freq_dim,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,        phase_dim,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,        slice_dim,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,       slice_code,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,      slice_start,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,        slice_end,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32, slice_duration,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      quatern_b,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      quatern_c,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      quatern_d,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      qoffset_x,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      qoffset_y,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      qoffset_z,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,           qfac,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,        qto_xyz, 16, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,        qto_ijk, 16, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,        sto_xyz, 16, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,        sto_ijk, 16, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,        toffset,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,        xyz_units,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,       time_units,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,       nifti_type,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,      intent_code,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      intent_p1,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      intent_p2,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_FLOAT32,      intent_p3,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, NT_DT_STRING,  intent_name, 16, rv);  errs += rv;
-   NT_SFILL(nim, nif, NT_DT_STRING,      descrip, 80, rv);  errs += rv;
-   NT_SFILL(nim, nif, NT_DT_STRING,     aux_file, 24, rv);  errs += rv;
-   NT_SFILL(nim, nif, NT_DT_CHAR_PTR,      fname,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, NT_DT_CHAR_PTR,      iname,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,     iname_offset,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,         swapsize,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,        byteorder,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, NT_DT_POINTER,        data,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, DT_INT32,          num_ext,  1, rv);  errs += rv;
-   NT_SFILL(nim, nif, NT_DT_EXT_PTR,    ext_list,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,             ndim,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,               nx,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,               ny,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,               nz,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,               nt,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,               nu,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,               nv,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,               nw,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,              dim,  8, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,             nvox,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,           nbyper,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,         datatype,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,             dx,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,             dy,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,             dz,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,             dt,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,             du,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,             dv,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,             dw,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,         pixdim,  8, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      scl_slope,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      scl_inter,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,        cal_min,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,        cal_max,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,       qform_code,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,       sform_code,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,         freq_dim,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,        phase_dim,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,        slice_dim,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,       slice_code,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,      slice_start,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,        slice_end,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32, slice_duration,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      quatern_b,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      quatern_c,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      quatern_d,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      qoffset_x,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      qoffset_y,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      qoffset_z,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,           qfac,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,        qto_xyz, 16, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,        qto_ijk, 16, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,        sto_xyz, 16, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,        sto_ijk, 16, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,        toffset,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,        xyz_units,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,       time_units,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,       nifti_type,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,      intent_code,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      intent_p1,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      intent_p2,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_FLOAT32,      intent_p3,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, NT_DT_STRING,  intent_name, 16, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, NT_DT_STRING,      descrip, 80, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, NT_DT_STRING,     aux_file, 24, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, NT_DT_CHAR_PTR,      fname,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, NT_DT_CHAR_PTR,      iname,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,     iname_offset,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,         swapsize,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,        byteorder,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, NT_DT_POINTER,        data,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, DT_INT32,          num_ext,  1, rv);  errs += rv;
+   NT_FILL(nifti_image, nif, NT_DT_EXT_PTR,    ext_list,  1, rv);  errs += rv;
 
    if( errs > 0 ){
       fprintf(stderr, "** %d fill_fields errors "
@@ -3198,7 +3197,7 @@ int fill_nim_field_array( field_s * nim_fields )
 
    if( g_debug > 3 )  /* failure here is not an error condition */
        check_total_size("nifti_image test: ", nim_fields,
-                        NT_NIM_NUM_FIELDS, sizeof(nim));
+                        NT_NIM_NUM_FIELDS, sizeof(nifti_image));
 
    if( g_debug > 3 )
       disp_field_s_list("nim_fields: ", nim_fields, NT_NIM_NUM_FIELDS);
@@ -3212,7 +3211,6 @@ int fill_nim_field_array( field_s * nim_fields )
  *----------------------------------------------------------------------*/
 int fill_ana_field_array( field_s * ah_fields )
 {
-   nifti_analyze75   nhdr;
    field_s         * ahf = ah_fields;
    int               rv, errs;
 
@@ -3223,62 +3221,62 @@ int fill_ana_field_array( field_s * ah_fields )
          nhf++;
    */
    errs = 0;
-   NT_SFILL(nhdr, ahf, DT_INT32,     sizeof_hdr,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, data_type,     10, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, db_name,       18, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     extents,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     session_error,  1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, regular,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT8,      hkey_un0,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     sizeof_hdr,     1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, data_type,     10, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, db_name,       18, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     extents,        1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     session_error,  1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, regular,        1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT8,      hkey_un0,       1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, DT_INT16,     dim,            8, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     unused8,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     unused9,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     unused10,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     unused11,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     unused12,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     unused13,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     unused14,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     dim,            8, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     unused8,        1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     unused9,        1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     unused10,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     unused11,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     unused12,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     unused13,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     unused14,       1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, DT_INT16,     datatype,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     bitpix,         1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT16,     dim_un0,        1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     datatype,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     bitpix,         1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     dim_un0,        1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   pixdim,         8, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   vox_offset,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   funused1,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   funused2,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   funused3,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   pixdim,         8, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   vox_offset,     1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   funused1,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   funused2,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   funused3,       1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   cal_max,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   cal_min,        1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   compressed,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_FLOAT32,   verified,       1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     glmax,          1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     glmin,          1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   cal_max,        1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   cal_min,        1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   compressed,     1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_FLOAT32,   verified,       1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     glmax,          1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     glmin,          1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, descrip,       80, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, aux_file,      24, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, descrip,       80, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, aux_file,      24, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, DT_INT8,      orient,         1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT8,      orient,         1, rv);  errs += rv;
    /* originator is 5 (3) shorts, not 10 chars        26 Sep 2012 [rickr] */
-   NT_SFILL(nhdr, ahf, DT_INT16,     originator,     5, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, generated,     10, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, scannum,       10, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, patient_id,    10, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, exp_date,      10, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, exp_time,      10, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, NT_DT_STRING, hist_un0,       3, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT16,     originator,     5, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, generated,     10, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, scannum,       10, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, patient_id,    10, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, exp_date,      10, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, exp_time,      10, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, NT_DT_STRING, hist_un0,       3, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, DT_INT32,     views     ,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     vols_added,     1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     start_field,    1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     field_skip,     1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     views     ,     1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     vols_added,     1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     start_field,    1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     field_skip,     1, rv);  errs += rv;
 
-   NT_SFILL(nhdr, ahf, DT_INT32,     omax,           1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     omin,           1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     smax,           1, rv);  errs += rv;
-   NT_SFILL(nhdr, ahf, DT_INT32,     smin,           1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     omax,           1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     omin,           1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     smax,           1, rv);  errs += rv;
+   NT_FILL(nifti_analyze75, ahf, DT_INT32,     smin,           1, rv);  errs += rv;
 
    if( errs > 0 ){
       fprintf(stderr, "** %d ana fill_fields errors!\n", errs);
@@ -3287,7 +3285,7 @@ int fill_ana_field_array( field_s * ah_fields )
 
    /* failure here is a serious problem */
    if( check_total_size("nifti_analyze75 test: ", ah_fields, NT_ANA_NUM_FIELDS,
-                        sizeof(nhdr)) )
+                        sizeof(nifti_analyze75)) )
       return 1;
 
    if( g_debug > 3 )
