@@ -87,7 +87,7 @@ int          axml_free_xml_t(afni_xml_t * ax);
 int          axml_free_xlist(afni_xml_list * axlist);
 
 char * axml_attr_value(afni_xml_t * ax, const char * name);
-int    axml_recur(int(*func)(FILE*,afni_xml_t*,int), afni_xml_t * root);
+int    axml_recur(int(*func)(FILE*,afni_xml_t*,int), afni_xml_t * ax);
 
 
 /* control API */

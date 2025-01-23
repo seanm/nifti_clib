@@ -2126,11 +2126,11 @@ double ***FslGetVolumeAsScaledDouble(FSLIO *fslio, int vol)
 
   if (fslio==NULL)  FSLIOERR("FslGetVolumeAsScaledDouble: Null pointer passed for FSLIO");
 
-  if ((fslio->niftiptr->dim[0] < 3) || (fslio->niftiptr->dim[0] > 4))
-        FSLIOERR("FslGetVolumeAsScaledDouble: Incorrect dataset dimension, 3D-4D needed");
-
   /***** nifti dataset */
   if (fslio->niftiptr!=NULL) {
+        if ((fslio->niftiptr->dim[0] < 3) || (fslio->niftiptr->dim[0] > 4))
+                FSLIOERR("FslGetVolumeAsScaledDouble: Incorrect dataset dimension, 3D-4D needed");
+
         xx = (fslio->niftiptr->nx == 0 ? 1 : (long)fslio->niftiptr->nx);
         yy = (fslio->niftiptr->ny == 0 ? 1 : (long)fslio->niftiptr->ny);
         zz = (fslio->niftiptr->nz == 0 ? 1 : (long)fslio->niftiptr->nz);
@@ -2210,11 +2210,11 @@ double ****FslGetBufferAsScaledDouble(FSLIO *fslio)
 
   if (fslio==NULL)  FSLIOERR("FslGetBufferAsScaledDouble: Null pointer passed for FSLIO");
 
-  if ((fslio->niftiptr->dim[0] <= 0) || (fslio->niftiptr->dim[0] > 4))
-        FSLIOERR("FslGetBufferAsScaledDouble: Incorrect dataset dimension, 1-4D needed");
-
   /***** nifti dataset */
   if (fslio->niftiptr!=NULL) {
+        if ((fslio->niftiptr->dim[0] <= 0) || (fslio->niftiptr->dim[0] > 4))
+                FSLIOERR("FslGetBufferAsScaledDouble: Incorrect dataset dimension, 1-4D needed");
+
         xx = (fslio->niftiptr->nx == 0 ? 1 : (long)fslio->niftiptr->nx);
         yy = (fslio->niftiptr->ny == 0 ? 1 : (long)fslio->niftiptr->ny);
         zz = (fslio->niftiptr->nz == 0 ? 1 : (long)fslio->niftiptr->nz);

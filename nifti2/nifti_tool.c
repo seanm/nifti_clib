@@ -6725,7 +6725,8 @@ int act_disp_ci( nt_opts * opts )
       } else if ( len64/nim->nbyper > INT_MAX ) {
          fprintf(stderr,"** %" PRId64 " is too many values to display\n",
                  len64/nim->nbyper);
-         if( data ) { free(data); data = NULL; }
+         free(data);
+         data = NULL;
          err++;
       }
 

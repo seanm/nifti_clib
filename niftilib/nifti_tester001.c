@@ -656,7 +656,7 @@ int main (int argc, const char *argv[])
   nifti_mat44_to_quatern(R,&qb,&qc,&qd,&qx,&qy,&qz,&dx,&dy,&dz,&qfac);
   PrintTest("nifti_mat44_to_quatern",
             qb != 0.000000 || qc != 0.000000 || qd != 0.000000 ||
-            qx != 0.000000 || qy != 0.000000 || qd != 0.000000 ||
+            qx != 0.000000 || qy != 0.000000 || qz != 0.000000 ||
             dx != 1.000000 || dy != 1.000000 || dz != 1.000000 ||
             qfac != 1.000000,
             NIFTITEST_FALSE,&Errors);
