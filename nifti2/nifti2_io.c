@@ -500,8 +500,8 @@ static int  rci_read_data(nifti_image *nim, int64_t *pivots, int64_t *prods,
                           int nprods, const int64_t dims[], char *data,
                           znzFile fp, int64_t base_offset);
 static int rci_alloc_mem(void **data, const int64_t prods[8], int nprods, int nbyper);
-static int  make_pivot_list(nifti_image * nim, const int64_t dims[],
-                            int64_t pivots[], int64_t prods[], int * nprods );
+static int  make_pivot_list(nifti_image * nim, const int64_t dims[8],
+                            int64_t pivots[8], int64_t prods[8], int * nprods );
 
 /* misc */
 static int   compare_strlist   (const char * str, char ** strlist, int len);
@@ -7179,7 +7179,7 @@ nifti_image* nifti_simple_init_nim(void)
 
    \return pointer to allocated nifti_2_header struct
 *//*--------------------------------------------------------------------*/
-nifti_2_header * nifti_make_new_n2_header(const int64_t arg_dims[],
+nifti_2_header * nifti_make_new_n2_header(const int64_t arg_dims[8],
                                           int arg_dtype)
 {
    nifti_2_header * nhdr;
@@ -7260,7 +7260,7 @@ nifti_2_header * nifti_make_new_n2_header(const int64_t arg_dims[],
 
    \return pointer to allocated nifti_1_header struct
 *//*--------------------------------------------------------------------*/
-nifti_1_header * nifti_make_new_n1_header(const int64_t arg_dims[],
+nifti_1_header * nifti_make_new_n1_header(const int64_t arg_dims[8],
                                           int arg_dtype)
 {
    nifti_1_header * nhdr;
@@ -7343,7 +7343,7 @@ nifti_1_header * nifti_make_new_n1_header(const int64_t arg_dims[],
 
    \return pointer to allocated nifti_image struct
 *//*--------------------------------------------------------------------*/
-nifti_image * nifti_make_new_nim(const int64_t dims[], int datatype,
+nifti_image * nifti_make_new_nim(const int64_t dims[8], int datatype,
                                  int data_fill)
 {
    nifti_image    * nim;
@@ -9495,8 +9495,8 @@ static int rci_alloc_mem(void **data, const int64_t prods[8], int nprods, int nb
    wants to collapse a dimension.  The last pivot should always be zero
    (note that we have space for that in the lists).
 */
-static int make_pivot_list(nifti_image *nim, const int64_t dims[],
-                           int64_t pivots[], int64_t prods[], int * nprods )
+static int make_pivot_list(nifti_image *nim, const int64_t dims[8],
+                           int64_t pivots[8], int64_t prods[8], int * nprods )
 {
    int len = 0;
    int64_t dind = nim->dim[0];

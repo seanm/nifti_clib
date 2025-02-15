@@ -421,10 +421,10 @@ NIO_API char * nifti_makebasename(const char* fname);
 
 /* other routines */
 NIO_API struct nifti_1_header   nifti_convert_nim2nhdr(const nifti_image* nim);
-NIO_API nifti_1_header * nifti_make_new_header(const int arg_dims[], int arg_dtype);
+NIO_API nifti_1_header * nifti_make_new_header(const int arg_dims[8], int arg_dtype);
 NIO_API nifti_1_header * nifti_read_header(const char *hname, int *swapped, int check);
 NIO_API nifti_image    * nifti_copy_nim_info(const nifti_image * src);
-NIO_API nifti_image    * nifti_make_new_nim(const int dims[], int datatype,
+NIO_API nifti_image    * nifti_make_new_nim(const int dims[8], int datatype,
                                                       int data_fill);
 NIO_API nifti_image    * nifti_simple_init_nim(void);
 NIO_API nifti_image    * nifti_convert_nhdr2nim(struct nifti_1_header nhdr,
