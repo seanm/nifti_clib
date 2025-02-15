@@ -60,7 +60,7 @@ typedef struct{
    int      cnvt_fail_choice;    /* what if conversion fails      */
    int      debug, keep_hist;    /* debug level and history flag  */
    int      overwrite;           /* overwrite flag                */
-   char *   prefix;              /* for output file               */
+   const char *   prefix;              /* for output file               */
    str_list elist;               /* extension strings             */
    int_list etypes;              /* extension type list           */
    str_list flist;               /* fields (to display or modify) */
@@ -299,7 +299,7 @@ NI2_API int disp_field       (const char *mesg,field_s *fieldp,void *str,int nfi
 NI2_API int disp_field_s_list(const char * mesg, field_s *, int nfields);
 NI2_API int disp_nt_opts     ( const char *mesg, nt_opts * opts);
 NI2_API int disp_raw_data    (void * data, int type, int nvals, char space,int newline);
-NI2_API int fill_cmd_string  (nt_opts * opts, int argc, char * argv[]);
+NI2_API int fill_cmd_string  (nt_opts * opts, int argc, const char * argv[]);
 NI2_API int fill_field       (field_s *fp, int type, int offset, int num, const char *name);
 NI2_API int fill_hdr1_field_array(field_s * nh_fields);
 NI2_API int fill_hdr2_field_array(field_s * nh_fields);
@@ -308,11 +308,11 @@ NI2_API int fill_nim2_field_array(field_s * nim_fields);
 NI2_API int fill_ana_field_array(field_s * ah_fields);
 NI2_API int modify_all_fields(void *basep, nt_opts *opts, field_s *fields, int flen);
 NI2_API int modify_field     (void * basep, field_s * field, const char * data);
-NI2_API int process_opts     (int argc, char * argv[], nt_opts * opts);
+NI2_API int process_opts     (int argc, const char * argv[], nt_opts * opts);
 NI2_API int remove_ext_list  (nifti_image * nim, const char ** elist, int len);
-NI2_API int usage            (char * prog, int level);
+NI2_API int usage            (const char * prog, int level);
 NI2_API int use_full         (void);
-NI2_API int verify_opts      (nt_opts * opts, char * prog);
+NI2_API int verify_opts      (nt_opts * opts, const char * prog);
 NI2_API int write_hdr_to_file (nifti_1_header * nhdr, const char * fname);
 NI2_API int write_hdr2_to_file(nifti_2_header * nhdr, const char * fname);
 

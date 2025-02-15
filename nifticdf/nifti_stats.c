@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main( int argc , char *argv[] )
+int main( int argc , const char *argv[] )
 {
    double val , p , p1=0.0,p2=0.0,p3=0.0 ;
    double vbot,vtop,vdel ;

@@ -424,7 +424,7 @@ static int  nifti_fill_extension(nifti1_extension * ext, const char * data,
 
 /* NBL routines */
 static int  nifti_load_NBL_bricks(nifti_image * nim , const int * slist, const int * sindex,                                  nifti_brick_list * NBL, znzFile fp );
-static int  nifti_alloc_NBL_mem(  nifti_image * nim, int nbricks,
+static int  nifti_alloc_NBL_mem(  const nifti_image * nim, int nbricks,
                                   nifti_brick_list * nbl);
 static int  nifti_copynsort(int nbricks, const int *blist, int **slist,
                             int **sindex);
@@ -901,7 +901,7 @@ static int nifti_load_NBL_bricks( nifti_image * nim , const int * slist, const i
  *
  * return 0 on success, -1 on failure
  *----------------------------------------------------------------------*/
-static int nifti_alloc_NBL_mem(nifti_image * nim, int nbricks,
+static int nifti_alloc_NBL_mem(const nifti_image * nim, int nbricks,
                                nifti_brick_list * nbl)
 {
    int c;
