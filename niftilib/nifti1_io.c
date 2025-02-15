@@ -802,7 +802,7 @@ void nifti_free_NBL( nifti_brick_list * NBL )
 
    if( NBL->bricks ){
       for( c = 0; c < NBL->nbricks; c++ )
-         if( NBL->bricks[c] ) free(NBL->bricks[c]);
+         free(NBL->bricks[c]);
       free(NBL->bricks);
       NBL->bricks = NULL;
    }
@@ -970,8 +970,8 @@ static int nifti_copynsort(int nbricks, const int * blist, int ** slist,
 
    if( !*slist || !*sindex ){
       fprintf(stderr,"** NCS: failed to alloc %d ints for sorting\n",nbricks);
-      if(*slist)  free(*slist);   /* maybe one succeeded */
-      if(*sindex) free(*sindex);
+      free(*slist);   /* maybe one succeeded */
+      free(*sindex);
       return -1;
    }
 
@@ -3100,8 +3100,8 @@ int nifti_set_filenames( nifti_image * nim, const char * prefix, int check,
    if( g_opts.debug > 1 )
       fprintf(stderr,"+d modifying output filenames using prefix %s\n", prefix);
 
-   if( nim->fname ) free(nim->fname);
-   if( nim->iname ) free(nim->iname);
+   free(nim->fname);
+   free(nim->iname);
    nim->fname = nifti_makehdrname(prefix, nim->nifti_type, check, comp);
    nim->iname = nifti_makeimgname(prefix, nim->nifti_type, check, comp);
    if( !nim->fname || !nim->iname ){
@@ -5098,9 +5098,9 @@ void nifti_image_unload( nifti_image *nim )
 void nifti_image_free( nifti_image *nim )
 {
    if( nim == NULL ) return ;
-   if( nim->fname != NULL ) free(nim->fname) ;
-   if( nim->iname != NULL ) free(nim->iname) ;
-   if( nim->data  != NULL ) free(nim->data ) ;
+   free(nim->fname) ;
+   free(nim->iname) ;
+   free(nim->data ) ;
    (void)nifti_free_extensions( nim ) ;
    free(nim) ; }
 
@@ -5122,7 +5122,7 @@ int nifti_free_extensions( nifti_image *nim )
    if( nim == NULL ) return -1;
    if( nim->num_ext > 0 && nim->ext_list ){
       for( c = 0; c < nim->num_ext; c++ )
-         if ( nim->ext_list[c].edata ) free(nim->ext_list[c].edata);
+         free(nim->ext_list[c].edata);
       free(nim->ext_list);
    }
    /* or if it is inconsistent, warn the user (if we are not in quiet mode) */

@@ -220,7 +220,7 @@ afni_xml_list axml_read_file(const char * fname, int read_data)
    }
 
    fclose(fp);
-   if( buf ) free(buf);        /* parser buffer */
+   free(buf);        /* parser buffer */
    XML_ParserFree(parser);
 
    if(xd->verb > 1) fprintf(stderr,"++ done parsing XML file %s\n", fname);
@@ -307,7 +307,7 @@ afni_xml_list axml_read_buf(const char * buf_in, int64_t bin_len)
         }
     }
 
-    if( buf ) free(buf);        /* parser buffer */
+    free(buf);        /* parser buffer */
     XML_ParserFree(parser);
 
     if(xd->verb > 1) fprintf(stderr,"++ done parsing XML buffer\n");
@@ -447,8 +447,8 @@ int axml_add_attrs(afni_xml_t * ax, const char ** attr)
    if( ! ax->attrs.name || ! ax->attrs.value ) {
       fprintf(stderr,"** NAX: failed to alloc 2 sets of %d char*\n", natr);
       ax->attrs.length = 0;
-      if( ax->attrs.name )  free(ax->attrs.name);
-      if( ax->attrs.value ) free(ax->attrs.value);
+      free(ax->attrs.name);
+      free(ax->attrs.value);
       ax->attrs.name = ax->attrs.value = NULL;
       return 1;
    }
@@ -492,25 +492,25 @@ int axml_free_xml_t(afni_xml_t * ax)
 
    if( !ax ) return 0;
 
-   if( ax->name )  { free(ax->name);  ax->name  = NULL; }
-   if( ax->xtext ) { free(ax->xtext); ax->xtext = NULL; }
-   if( ax->bdata ) { free(ax->bdata); ax->bdata = NULL; }
+   free(ax->name);  ax->name  = NULL;
+   free(ax->xtext); ax->xtext = NULL;
+   free(ax->bdata); ax->bdata = NULL;
    ax->xlen = 0;
 
    /* free all attributes */
    for(ind = 0; ind < ax->attrs.length; ind++ ) {
-      if( ax->attrs.name  && ax->attrs.name[ind] )  free(ax->attrs.name[ind]);
-      if( ax->attrs.value && ax->attrs.value[ind] ) free(ax->attrs.value[ind]);
+      if( ax->attrs.name )  free(ax->attrs.name[ind]);
+      if( ax->attrs.value ) free(ax->attrs.value[ind]);
    }
-   if( ax->attrs.name )  { free(ax->attrs.name);  ax->attrs.name = NULL; }
-   if( ax->attrs.value ) { free(ax->attrs.value); ax->attrs.value = NULL; }
+   free(ax->attrs.name);  ax->attrs.name = NULL;
+   free(ax->attrs.value); ax->attrs.value = NULL;
    ax->attrs.length = 0;
 
    /* and free children */
    if( ax->nchild > 0 && ax->xchild )
       for( ind=0; ind < ax->nchild; ind++ ) axml_free_xml_t(ax->xchild[ind]);
    ax->nchild = 0;
-   if( ax->xchild ) { free(ax->xchild); ax->xchild = NULL; }
+   free(ax->xchild); ax->xchild = NULL;
    ax->xparent = NULL;
 
    free(ax);
@@ -864,7 +864,7 @@ static char * strip_whitespace(const char * str, int slen)
    int           len, ifirst, ilast;  /* first non-white char and AFTER last */
 
    /* backdoor to free this memory, e.g. on call to free list */
-   if(!str && slen == -2){if(buf) { free(buf); buf=NULL; } blen=0; return 0; }
+   if(!str && slen == -2){ free(buf); buf=NULL; blen=0; return 0; }
 
    /* if string is long, forget it */
    if( !str || slen > 1024 ) return (char *)str;
