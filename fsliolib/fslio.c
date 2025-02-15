@@ -2087,8 +2087,8 @@ FSLIO * FslReadHeader(char *fname)
   /** read header information */
   fslio->niftiptr = nifti_image_read(hdrname, 0);
 
-  if( imgname ) free(imgname);
-  if( hdrname ) free(hdrname);
+  free(imgname);
+  free(hdrname);
 
   if (fslio->niftiptr == NULL) {
         FSLIOERR("FslReadHeader: error reading header information");
