@@ -12,8 +12,8 @@
 /* ----------------------------------------------------------------- */
 /* define and declare main option struct */
 typedef struct {
-   char * fin;
-   char * fout;
+   const char * fin;
+   const char * fout;
    int    disp_xlist;
    int    verb;
    int    xverb;
@@ -24,12 +24,12 @@ opts_t gopt;
 
 /* ----------------------------------------------------------------- */
 /* protos */
-int process_args         (int argc, char * argv[], opts_t * opts);
+int process_args         (int argc, const char * argv[], opts_t * opts);
 int process              (opts_t * opts);
 int show_help            (void);
 
 /* ----------------------------------------------------------------- */
-int main(int argc, char * argv[])
+int main(int argc, const char * argv[])
 {
    int rv;
 
@@ -45,7 +45,7 @@ int main(int argc, char * argv[])
 }
 
 /* ----------------------------------------------------------------- */
-int process_args(int argc, char * argv[], opts_t * opts)
+int process_args(int argc, const char * argv[], opts_t * opts)
 {
    int ac;
 

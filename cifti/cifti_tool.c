@@ -37,14 +37,14 @@ static const char * g_history[] =
   "----------------------------------------------------------------------\n"
 };
 
-static char g_version[] = "cifti_tool version 0.3, 21 August, 2015";
+static const char g_version[] = "cifti_tool version 0.3, 21 August, 2015";
 
 /* ----------------------------------------------------------------- */
 /* define and declare main option struct */
 typedef struct {
-   char * fin;
-   char * fout;
-   char * eval_type;
+   const char * fin;
+   const char * fout;
+   const char * eval_type;
    int    verb;
    int    vread;
    int    as_cext;
@@ -66,7 +66,7 @@ int eval_cifti_extension(afni_xml_t * ax, opts_t * opts);
 int show_cifti_summary  (FILE * fp, afni_xml_t * ax, int verb);
 
 /* main */
-int process_args        (int argc, char * argv[], opts_t * opts);
+int process_args        (int argc, const char * argv[], opts_t * opts);
 int process             (opts_t * opts);
 int show_help           (void);
 int show_hist           (void);
@@ -81,10 +81,10 @@ int ax_show_names       (FILE * fp, afni_xml_t * ax, int depth);
 
 /* stream */
 int          close_stream        (FILE * fp);
-FILE       * open_write_stream   (char * fname);
+FILE       * open_write_stream   (const char * fname);
 
 /* ----------------------------------------------------------------- */
-int main(int argc, char * argv[])
+int main(int argc, const char * argv[])
 {
    int rv;
 
@@ -101,7 +101,7 @@ int main(int argc, char * argv[])
 }
 
 /* ----------------------------------------------------------------- */
-int process_args(int argc, char * argv[], opts_t * opts)
+int process_args(int argc, const char * argv[], opts_t * opts)
 {
    int ac;
 
@@ -269,7 +269,7 @@ int eval_cifti_extension(afni_xml_t * ax, opts_t * opts)
 }
 
 /* look for stdin/stdout */
-FILE * open_write_stream(char * fname)
+FILE * open_write_stream(const char * fname)
 {
    FILE * fp = NULL;
 

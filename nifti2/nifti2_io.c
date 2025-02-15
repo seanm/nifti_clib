@@ -488,7 +488,7 @@ static void compute_strides(int64_t *strides,const int64_t *size,int nbyper);
 /* NBL routines */
 static int  nifti_load_NBL_bricks(nifti_image * nim , const int64_t * slist,
                        const int64_t * sindex, nifti_brick_list * NBL, znzFile fp );
-static int  nifti_alloc_NBL_mem(  nifti_image * nim, int64_t nbricks,
+static int  nifti_alloc_NBL_mem(  const nifti_image * nim, int64_t nbricks,
                                   nifti_brick_list * nbl);
 static int  nifti_copynsort(int64_t nbricks, const int64_t *blist,
                             int64_t **slist, int64_t **sindex);
@@ -1001,7 +1001,7 @@ static int nifti_load_NBL_bricks( nifti_image * nim , const int64_t * slist,
  *
  * return 0 on success, -1 on failure
  *----------------------------------------------------------------------*/
-static int nifti_alloc_NBL_mem(nifti_image * nim, int64_t nbricks,
+static int nifti_alloc_NBL_mem(const nifti_image * nim, int64_t nbricks,
                                nifti_brick_list * nbl)
 {
    int64_t c;

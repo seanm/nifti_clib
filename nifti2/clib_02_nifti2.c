@@ -42,10 +42,11 @@ static int show_help( void )
    return 0;
 }
 
-int main(int argc, char * argv[])
+int main(int argc, const char * argv[])
 {
    nifti_image * nim=NULL;
-   char        * fin=NULL, * fout=NULL;
+   const char  * fin=NULL;
+   const char  * fout=NULL;
    int           ac, disp_float_eg=0;
 
    if( argc < 2 ) return show_help();   /* typing '-help' is sooo much work */

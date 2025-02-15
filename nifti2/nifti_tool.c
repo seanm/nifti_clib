@@ -204,8 +204,8 @@ static const char * g_history[] =
   "   - add -convert2dtype, -convert_verify, -convert_fail_choice\n",
   "----------------------------------------------------------------------\n"
 };
-static char g_version[] = "2.13";
-static char g_version_date[] = "February 27, 2022";
+static const char g_version[] = "2.13";
+static const char g_version_date[] = "February 27, 2022";
 static int  g_debug = 1;
 
 #include <limits.h>
@@ -246,7 +246,7 @@ static const char * g_nim_timing_fnames[NT_NIM_TIME_NFIELDS] = {
      "dim", "pixdim", "xyz_units", "time_units" };
 
 
-int main( int argc, char * argv[] )
+int main( int argc, const char * argv[] )
 {
    nt_opts opts;
    int     rv;
@@ -325,7 +325,7 @@ int main( int argc, char * argv[] )
 /*----------------------------------------------------------------------
  * process user options, return 0 on success
  *----------------------------------------------------------------------*/
-int process_opts( int argc, char * argv[], nt_opts * opts )
+int process_opts( int argc, const char * argv[], nt_opts * opts )
 {
    int ac, count;
 
@@ -724,7 +724,7 @@ int process_opts( int argc, char * argv[], nt_opts * opts )
 /*----------------------------------------------------------------------
  * verify that the options make sense
  *----------------------------------------------------------------------*/
-int verify_opts( nt_opts * opts, char * prog )
+int verify_opts( nt_opts * opts, const char * prog )
 {
    int ac, errs = 0;   /* number of requested action types */
 
@@ -849,7 +849,7 @@ int verify_opts( nt_opts * opts, char * prog )
  * re-assemble the command string into opts->command
  * (commands are currently limited to 2048 bytes)
  *----------------------------------------------------------------------*/
-int fill_cmd_string( nt_opts * opts, int argc, char * argv[])
+int fill_cmd_string( nt_opts * opts, int argc, const char * argv[])
 {
    char * cp;
    size_t len, c, remain = sizeof(opts->command);  /* max command len */
@@ -955,7 +955,7 @@ int add_string(str_list * slist, const char * str)
 /*----------------------------------------------------------------------
  * display information on using the program
  *----------------------------------------------------------------------*/
-int usage(char * prog, int level)
+int usage(const char * prog, int level)
 {
    int c, len;
    if( level == USE_SHORT )

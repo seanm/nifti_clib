@@ -82,7 +82,7 @@
 
 NCDF_API extern char const * const inam[];
 
-NCDF_API int nifti_intent_code( char *name );
+NCDF_API int nifti_intent_code( const char *name );
 NCDF_API double nifti_stat2cdf( double val, int code, double p1,double p2,double p3 );
 NCDF_API double nifti_stat2rcdf( double val, int code, double p1,double p2,double p3 );
 NCDF_API double nifti_cdf2stat( double p , int code, double p1,double p2,double p3 );

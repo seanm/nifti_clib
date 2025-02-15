@@ -11042,7 +11042,7 @@ char const * const inam[]={ NULL , NULL ,
     - Returns -1 if name isn't found in the table.
 ----------------------------------------------------------------------------*/
 
-int nifti_intent_code( char *name )
+int nifti_intent_code( const char *name )
 {
    char *unam , *upt ;
    int ii ;

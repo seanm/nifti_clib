@@ -159,7 +159,7 @@ static const char * g_history[] =
   "   - changed ana originator from char to short\n"
   "----------------------------------------------------------------------\n"
 };
-static char g_version[] = "version 1.24 (September 26, 2012)";
+static const char g_version[] = "version 1.24 (September 26, 2012)";
 static int  g_debug = 1;
 
 #include <limits.h>
@@ -187,7 +187,7 @@ static field_s g_hdr_fields[NT_HDR_NUM_FIELDS];    /* nifti_1_header fields */
 static field_s g_ana_fields[NT_ANA_NUM_FIELDS];    /* nifti_analyze75       */
 static field_s g_nim_fields[NT_NIM_NUM_FIELDS];    /* nifti_image fields    */
 
-int main( int argc, char * argv[] )
+int main( int argc, const char * argv[] )
 {
    nt_opts opts;
    int     rv;
@@ -249,7 +249,7 @@ int main( int argc, char * argv[] )
 /*----------------------------------------------------------------------
  * process user options, return 0 on success
  *----------------------------------------------------------------------*/
-int process_opts( int argc, char * argv[], nt_opts * opts )
+int process_opts( int argc, const char * argv[], nt_opts * opts )
 {
    int ac;
 
@@ -559,7 +559,7 @@ int process_opts( int argc, char * argv[], nt_opts * opts )
 /*----------------------------------------------------------------------
  * verify that the options make sense
  *----------------------------------------------------------------------*/
-int verify_opts( nt_opts * opts, char * prog )
+int verify_opts( nt_opts * opts, const char * prog )
 {
    int ac, errs = 0;   /* number of requested action types */
 
@@ -687,7 +687,7 @@ int verify_opts( nt_opts * opts, char * prog )
 /*----------------------------------------------------------------------
  * re-assemble the command string into opts->command
  *----------------------------------------------------------------------*/
-int fill_cmd_string( nt_opts * opts, int argc, char * argv[])
+int fill_cmd_string( nt_opts * opts, int argc, const char * argv[])
 {
    char * cp;
    size_t len, c, remain = sizeof(opts->command);  /* max command len */
