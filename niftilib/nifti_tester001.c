@@ -212,7 +212,7 @@ int main (int argc, const char *argv[])
      * Add an extension to test extension reading
      */
     {
-    static char ext[] = "THIS IS A TEST";
+    const char ext[] = "THIS IS A TEST";
     snprintf(buf,sizeof(buf),"nifti_add_extension %s",write_image_filename[filenameindex]);
     PrintTest(buf,
               nifti_add_extension(reference_image,
@@ -670,7 +670,7 @@ int main (int argc, const char *argv[])
             false,&Errors);
   }
   {
-  static char x[16] = { 'a','b','c','d','e','f','g','h',
+  char x[16] = { 'a','b','c','d','e','f','g','h',
                         'H','G','F','E','D','C','B','A' };
   nifti_swap_Nbytes(1,16,(void *)x);
   PrintTest("nifti_swap_16bytes",
@@ -682,7 +682,7 @@ int main (int argc, const char *argv[])
 
   }
   {
-  static char x[8] = { 'a','b','c','d','D','C','B','A' };
+  char x[8] = { 'a','b','c','d','D','C','B','A' };
   nifti_swap_Nbytes(1,8,(void *)x);
   PrintTest("nifti_swap_8bytes",
             x[0] != 'A' || x[1] != 'B' || x[2] != 'C' || x[3] != 'D' ||
