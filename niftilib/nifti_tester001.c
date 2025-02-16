@@ -419,18 +419,18 @@ int main (int argc, const char *argv[])
     printf("\nTesting \"%s\" filename\n",FILE_NAMES[fni]);
     {
     int KnownValid=nifti_validfilename(FILE_NAMES[fni]);
-    snprintf(TEMP_STR,256,"nifti_validfilename(\"%s\")=%d",FILE_NAMES[fni],KnownValid);
+    snprintf(TEMP_STR,sizeof(TEMP_STR),"nifti_validfilename(\"%s\")=%d",FILE_NAMES[fni],KnownValid);
     PrintTest(TEMP_STR,KnownValid != KNOWN_nifti_validfilename[fni],false,&Errors);
     }
     {
     int KnownValid=nifti_is_complete_filename(FILE_NAMES[fni]);
-    snprintf(TEMP_STR,256,"nifti_is_complete_filename(\"%s\")=%d",FILE_NAMES[fni],KnownValid);
+    snprintf(TEMP_STR,sizeof(TEMP_STR),"nifti_is_complete_filename(\"%s\")=%d",FILE_NAMES[fni],KnownValid);
     PrintTest(TEMP_STR,KnownValid != KNOWN_nifti_is_complete_filename[fni],false,&Errors);
     }
 
     {
     char * basename=nifti_makebasename(FILE_NAMES[fni]);
-    snprintf(TEMP_STR,256,"nifti_makebasename(\"%s\")=\"%s\"",FILE_NAMES[fni],basename);
+    snprintf(TEMP_STR,sizeof(TEMP_STR),"nifti_makebasename(\"%s\")=\"%s\"",FILE_NAMES[fni],basename);
     PrintTest(TEMP_STR,strcmp(basename,KNOWN_FILE_BASENAMES[fni]) != 0,false,&Errors);
     free(basename);
 
