@@ -1278,16 +1278,15 @@ int nifti_disp_matrix_orient( const char * mesg, nifti_dmat44 mat )
 *//*--------------------------------------------------------------------*/
 char *nifti_strdup(const char *str)
 {
-  char *dup;
-
   if( !str ) return NULL;       /* allow calls passing NULL */
 
-  dup = (char *)malloc(strlen(str) + 1);
+  size_t length = strlen(str);
+  char *dup = (char *)malloc(length + 1);
 
   /* check for failure */
   if( dup ) strcpy(dup, str);
-  else      fprintf(stderr,"** nifti_strdup: failed to alloc %" PRId64
-                           " bytes\n", (int64_t)(strlen(str)+1));
+  else      fprintf(stderr,"** nifti_strdup: failed to alloc %zu bytes\n",
+                           length+1);
 
   return dup;
 }
@@ -3575,10 +3574,10 @@ int nifti_is_gzfile(const char* fname)
   /* return true if the filename ends with .gz */
   if (fname == NULL) { return 0; }
 #ifdef HAVE_ZLIB
-  { /* just so len doesn't generate compile warning */
+  {
      size_t len = strlen(fname);
      if (len < 3) return 0;  /* so we don't search before the name */
-     if (fileext_compare(fname + strlen(fname) - 3,".gz")==0) { return 1; }
+     if (fileext_compare(fname + len - 3,".gz")==0) { return 1; }
   }
 #endif
   return 0;
