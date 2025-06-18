@@ -690,15 +690,14 @@ int verify_opts( nt_opts * opts, const char * prog )
 int fill_cmd_string( nt_opts * opts, int argc, const char * argv[])
 {
    char * cp;
-   size_t len, c, remain = sizeof(opts->command);  /* max command len */
-   int    ac;
+   size_t remain = sizeof(opts->command);  /* max command len */
    int    has_space;  /* arguments containing space must be quoted */
    int    skip = 0;   /* counter to skip some of the arguments     */
 
    /* get the first argument separately */
-   len = snprintf( opts->command, sizeof(opts->command),
-                   "\n  command: %s", argv[0] );
-   if( len >= sizeof(opts->command) ) {
+   int len = snprintf( opts->command, sizeof(opts->command),
+                       "\n  command: %s", argv[0] );
+   if( len < 0 || (size_t)len >= sizeof(opts->command) ) {
       fprintf(stderr,"FCS: no space remaining for command, continuing...\n");
       return 1;
    }
@@ -706,12 +705,12 @@ int fill_cmd_string( nt_opts * opts, int argc, const char * argv[])
    remain -= len;
 
    /* get the rest, with special attention to input files */
-   for( ac = 1; ac < argc; ac++ )
+   for( int ac = 1; ac < argc; ac++ )
    {
       if( skip ){ skip--;  continue; }  /* then skip these arguments */
 
-      len = strlen(argv[ac]);
-      if( len + 3 >= remain ) {  /* extra 3 for space and possible '' */
+      size_t tmp_len = strlen(argv[ac]);
+      if( tmp_len + 3 >= remain ) {  /* extra 3 for space and possible '' */
          fprintf(stderr,"FCS: no space remaining for command, continuing...\n");
          return 1;
       }
@@ -719,11 +718,15 @@ int fill_cmd_string( nt_opts * opts, int argc, const char * argv[])
       /* put the argument in, possibly with '' */
 
       has_space = 0;
-      for( c = 0; c < len-1; c++ )
+      for( size_t c = 0; c < tmp_len-1; c++ )
          if( isspace(argv[ac][c]) ){ has_space = 1; break; }
       if( has_space ) len = snprintf(cp, remain, " '%s'", argv[ac]);
       else            len = snprintf(cp, remain, " %s",   argv[ac]);
 
+      if( len < 0 || len >= remain ) {
+         fprintf(stderr,"FCS: error parsing command, continuing...\n");
+         return 1;
+      }
       remain -= len;
 
       /* infiles is okay, but after the *next* argument, we may skip files */
