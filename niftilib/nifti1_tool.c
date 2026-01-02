@@ -162,6 +162,7 @@ static const char * g_history[] =
 static const char g_version[] = "version 1.24 (September 26, 2012)";
 static int  g_debug = 1;
 
+#include <assert.h>
 #include <limits.h>
 #include <string.h>
 #include <stdint.h>
@@ -2591,7 +2592,7 @@ int act_mod_hdrs( nt_opts * opts )
       }
 
       /* okay, let's actually trash the data fields */
-      if( modify_all_fields(nhdr, opts, g_hdr_fields, NT_HDR_NUM_FIELDS) )
+      if( modify_all_fields(nhdr, sizeof(*nhdr), opts, g_hdr_fields, NT_HDR_NUM_FIELDS) )
       {
          free(nhdr);
          return 1;
@@ -2787,7 +2788,7 @@ int act_mod_nims( nt_opts * opts )
                  opts->flist.len, opts->infiles.list[filec]);
 
       /* okay, let's actually trash the data fields */
-      if( modify_all_fields(nim, opts, g_nim_fields, NT_NIM_NUM_FIELDS) )
+      if( modify_all_fields(nim, sizeof(*nim), opts, g_nim_fields, NT_NIM_NUM_FIELDS) )
       {
          nifti_image_free(nim);
          return 1;
@@ -2857,7 +2858,7 @@ int write_hdr_to_file( nifti_1_header * nhdr, const char * fname )
 /*----------------------------------------------------------------------
  * modify all fields in the list
  *----------------------------------------------------------------------*/
-int modify_all_fields( void * basep, nt_opts * opts, field_s * fields, int flen)
+int modify_all_fields( void * basep, size_t baselen, nt_opts * opts, field_s * fields, int flen)
 {
    field_s * fp;
    int       fc, lc;  /* field and list counters */
@@ -2883,7 +2884,7 @@ int modify_all_fields( void * basep, nt_opts * opts, field_s * fields, int flen)
          return 1;
       }
 
-      if( modify_field( basep, fp, opts->vlist.list[lc]) )
+      if( modify_field( basep, baselen, fp, opts->vlist.list[lc]) )
          return 1;
    }
 
@@ -2896,7 +2897,7 @@ int modify_all_fields( void * basep, nt_opts * opts, field_s * fields, int flen)
  *
  * pointer fields are not allowed here
  *----------------------------------------------------------------------*/
-int modify_field(void * basep, field_s * field, const char * data)
+int modify_field(void * basep, size_t baselen, field_s * field, const char * data)
 {
    float         fval;
    const char  * posn = data;
@@ -3021,6 +3022,7 @@ int modify_field(void * basep, field_s * field, const char * data)
 
          case NT_DT_STRING:
          {
+            assert(field->offset + field->len <= baselen);
             char * dest = (char *)basep + field->offset;
             nchars = dataLength;
             strncpy(dest, data, field->len);
