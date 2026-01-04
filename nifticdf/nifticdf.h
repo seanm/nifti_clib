@@ -120,7 +120,7 @@ NCDF_API void cdffnc(const int*,double*,double*,double*,double*,double*,double*,
 NCDF_API void cdfgam(const int*,double*,double*,double*,double*,double*,int*,double*);
 #if defined(__COMPILE_UNUSED_FUNCTIONS__)
 NCDF_API void cdfnbn(int*,double*,double*,double*,double*,double*,double*,
-NCDF_API                    int*,double*);
+                     int*,double*);
 NCDF_API void cdfnor(int*,double*,double*,double*,double*,double*,int*,double*);
 #endif /*defined(__COMPILE_UNUSED_FUNCTIONS__)*/
 NCDF_API void cdfpoi(const int*,double*,double*,double*,double*,int*,double*);
